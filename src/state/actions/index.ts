@@ -13,6 +13,7 @@ interface WithdrawAction {
 
 interface BankruptAction {
   type: ActionType.BANKRUPT;
+  payload: number;
 }
 
 interface BalanceAction {

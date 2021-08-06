@@ -1,0 +1,15 @@
+.container {
+  width: 400px;
+  min-height: 100px;
+  max-height: 300px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  margin: 30px 0;
+  border-radius: 40px;
+  background: white;
+}
+
+@media (max-width: 500px) {
+  .container {
+    width: 300px;
+  }
+}

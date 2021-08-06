@@ -1,17 +1,17 @@
+.history-container {
+  max-height: 300px;
+  min-height: 300px;
+}
+
 .history {
-  width: 400px;
-  min-height: 100px;
-  box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.3);
-  margin: 30px 0;
-  border-radius: 10px;
-  background: white;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 30px 0;
+  overflow: auto;
+  max-height: 200px;
 }
-.history p {
+.history-p {
   font-weight: bold;
   font-size: 25px;
   color: black;
@@ -21,8 +21,8 @@
   color: #2c2e2f;
 }
 
-@media (max-width: 400px) {
+/* @media (max-width: 400px) {
   .history {
     width: 100%;
   }
-}
+} */

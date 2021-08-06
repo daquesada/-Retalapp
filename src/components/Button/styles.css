@@ -1,6 +1,6 @@
 .btn {
   border-radius: 10px;
-  background: #009cde;
+  background: #009cda; /*#005ea6*/
   text-align: center;
   width: 150px;
   height: 40px;
@@ -9,6 +9,7 @@
   /* box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.2); */
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
   font-size: 18px;
+  color: white;
 }
 
 .btn:hover {
@@ -21,4 +22,7 @@
   .btn {
     margin-top: 10px;
   }
+}
+.btn[disabled] {
+  background: #009cdaaa;
 }

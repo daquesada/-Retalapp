@@ -1,14 +1,17 @@
 {
   "history": [
     {
+      "id": "b97394d5-c561-45a1-8f35-47e8c279b37d",
       "type": "withdraw",
       "amount": 1000
     },
     {
+      "id": "58cf3d45-7bfd-4ed0-859a-41ee909680fb",
       "type": "deposit",
       "amount": 1000
     },
     {
+      "id": "a7e26828-a0d4-4f01-8258-8e4acf7dee34",
       "type": "deposit",
       "amount": 1000
     }

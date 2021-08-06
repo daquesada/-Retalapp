@@ -17,7 +17,7 @@ const reducer = (state: Bank = initialState, action: Action): Bank => {
       state.balance -= action.payload;
       return state;
     case ActionType.BANKRUPT:
-      state.balance = 0;
+      state.balance -= action.payload;
       return state;
     case ActionType.BALANCE:
       state.balance = action.payload;

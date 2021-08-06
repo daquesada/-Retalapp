@@ -1,6 +1,6 @@
-// import { Dispatch } from "redux";
+import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
-// import { Action } from "../actions/index";
+import { Action } from "../actions/index";
 import { History } from "../../models/index";
 
 export const depositMoney = (amount: number) => {
@@ -17,26 +17,48 @@ export const withdrawMoney = (amount: number) => {
   };
 };
 
-export const bankrupt = () => {
-  return {
-    type: ActionType.BANKRUPT,
+export const bankrupt = (amount: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.BANKRUPT,
+      payload: amount,
+    });
   };
 };
 
+/**
+ *
+ * @param amount balance in your acount
+ * @returns dispatch
+ */
 export const balance = (amount: number) => {
-  return {
-    type: ActionType.BALANCE,
-    payload: amount,
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.BALANCE,
+      payload: amount,
+    });
   };
 };
 
+/**
+ *
+ * @param history Array with the history from API
+ * @returns dispatch
+ */
 export const historyInit = (history: Array<History>) => {
-  return {
-    type: ActionType.HISTORYINIT,
-    payload: history,
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.HISTORYINIT,
+      payload: history,
+    });
   };
 };
 
+/**
+ *
+ * @param history Object type History to add into the state
+ * @returns action
+ */
 export const history = (history: History) => {
   return {
     type: ActionType.HISTORY,
