@@ -1,0 +1,12 @@
+.btn-container {
+  display: flex;
+  margin: 30px 0;
+}
+
+@media (max-width: 600px) {
+  .btn-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

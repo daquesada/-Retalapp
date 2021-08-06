@@ -1,0 +1,36 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  margin: 0 auto;
+  max-width: 550px;
+  background: #f6f7f8;
+  background-image: radial-gradient(#ff3b3b 1px, transparent 1px),
+    radial-gradient(#4cff16 1px, transparent 1px);
+  background-position: 0 0, 25px 10px;
+  background-size: 50px 50px;
+
+  overscroll-behavior-y: contain;
+}
+ul,
+li,
+h1,
+h2,
+h3,
+p,
+button {
+  margin: 0;
+  padding: 0;
+}
+button {
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
