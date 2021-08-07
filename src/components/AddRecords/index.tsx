@@ -7,6 +7,7 @@ import { Button } from "../Button";
 import { postData } from "../../services/data";
 import "./styles.css";
 import { v4 as uuidv4 } from "uuid";
+import { Spinner } from "../Spinner";
 /**
  * Container with the buttons and their logic
  *
@@ -20,6 +21,7 @@ export const AddRecord = () => {
   );
   const balance = useSelector((state: RootState) => state.bank.balance);
   const [disable, setDisable] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     balance === 0 ? setDisable(true) : setDisable(false);
@@ -27,17 +29,20 @@ export const AddRecord = () => {
 
   const handleBankrupt = () => {
     const id = uuidv4();
-
+    setLoading(true);
     postData({ data: { amount: balance, type: "withdraw", id } })
       .then((data) => {
-        if (data["data"]) {
-          bankrupt(balance);
-          history({ amount: balance, type: "withdraw", id });
-        } else {
-          setMsg("Please, try again");
-        }
+        setTimeout(() => {
+          setLoading(false);
+          if (data["data"]) {
+            bankrupt(balance);
+            history({ amount: balance, type: "withdraw", id });
+          } else {
+            setMsg("Please, try again");
+          }
+        }, 1000);
       })
-      .catch(() => console.log("sssss"));
+      .catch(() => setLoading(false));
   };
 
   return (
@@ -45,22 +50,31 @@ export const AddRecord = () => {
       <div className="btn-container">
         <Button
           onClick={() => {
-            depositMoney(1000);
-            history({ amount: 1000, type: "deposit", id: uuidv4() });
+            setLoading(true);
+            setTimeout(() => {
+              depositMoney(1000);
+              history({ amount: 1000, type: "deposit", id: uuidv4() });
+              setLoading(false);
+            }, 500);
           }}
           text="Deposit"
           disable={false}
         />
         <Button
           onClick={() => {
-            withdrawMoney(1000);
-            history({ amount: 1000, type: "withdraw", id: uuidv4() });
+            setLoading(true);
+            setTimeout(() => {
+              withdrawMoney(1000);
+              history({ amount: 1000, type: "withdraw", id: uuidv4() });
+              setLoading(false);
+            }, 500);
           }}
           disable={disable}
           text="Withdraw"
         />
         <Button onClick={handleBankrupt} disable={disable} text={"Bankrupt"} />
       </div>
+      {loading && <Spinner />}
       <p>{msg}</p>
     </Fragment>
   );
