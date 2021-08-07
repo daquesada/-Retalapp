@@ -5,13 +5,11 @@ import { actionCreators } from "../../state";
 import { RootState } from "../../state/reducers/index";
 import { Button } from "../Button";
 import { postData } from "../../services/data";
-import "./styles.css";
 import { v4 as uuidv4 } from "uuid";
 import { Spinner } from "../Spinner";
-/**
- * Container with the buttons and their logic
- *
- */
+import { History } from "../../models";
+import "./styles.css";
+
 export const AddRecord = () => {
   const [msg, setMsg] = useState("");
   const dispatch = useDispatch();
@@ -27,22 +25,28 @@ export const AddRecord = () => {
     balance === 0 ? setDisable(true) : setDisable(false);
   }, [balance]);
 
-  const handleBankrupt = () => {
-    const id = uuidv4();
-    setLoading(true);
-    postData({ data: { amount: balance, type: "withdraw", id } })
-      .then((data) => {
+  const sendDataToAPI = (data: History, action: Function) =>
+    postData({ data })
+      .then((res) => {
+        setMsg("");
         setTimeout(() => {
           setLoading(false);
-          if (data["data"]) {
-            bankrupt(balance);
-            history({ amount: balance, type: "withdraw", id });
+          if (res["data"]) {
+            action(data.amount);
+            history(data);
           } else {
             setMsg("Please, try again");
           }
-        }, 1000);
+        }, 250);
       })
       .catch(() => setLoading(false));
+
+  const handleBankrupt = () => {
+    const amount = balance;
+    const id = uuidv4();
+    const data: History = { amount, type: "withdraw", id };
+    setLoading(true);
+    sendDataToAPI(data, bankrupt);
   };
 
   return (
@@ -50,29 +54,37 @@ export const AddRecord = () => {
       <div className="btn-container">
         <Button
           onClick={() => {
+            const amount = 1000;
+            const data: History = {
+              amount,
+              type: "deposit",
+              id: uuidv4(),
+            };
             setLoading(true);
-            setTimeout(() => {
-              depositMoney(1000);
-              history({ amount: 1000, type: "deposit", id: uuidv4() });
-              setLoading(false);
-            }, 500);
+            sendDataToAPI(data, depositMoney);
           }}
           text="Deposit"
-          disable={false}
+          disable={loading}
         />
         <Button
           onClick={() => {
+            const amount = 1000;
+            const data: History = {
+              amount,
+              type: "withdraw",
+              id: uuidv4(),
+            };
             setLoading(true);
-            setTimeout(() => {
-              withdrawMoney(1000);
-              history({ amount: 1000, type: "withdraw", id: uuidv4() });
-              setLoading(false);
-            }, 500);
+            sendDataToAPI(data, withdrawMoney);
           }}
-          disable={disable}
+          disable={disable || loading}
           text="Withdraw"
         />
-        <Button onClick={handleBankrupt} disable={disable} text={"Bankrupt"} />
+        <Button
+          onClick={handleBankrupt}
+          disable={disable || loading}
+          text={"Bankrupt"}
+        />
       </div>
       {loading && <Spinner />}
       <p>{msg}</p>
